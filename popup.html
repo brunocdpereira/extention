@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    :root {
+      --primary: #7c4dbb;
+      --bg: #1a1a1a;
+      --card: #2d2d2d;
+      --text: #f0f0f0;
+      --muted: #aaa;
+    }
+
+    body {
+      width: 390px;
+      padding: 14px;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .header img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .header h3 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .dev-credit {
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+
+    .teams-btn {
+      background: #5c2d91;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 12px;
+      text-decoration: none;
+      display: block;
+      transition: 0.2s;
+    }
+    .teams-btn:hover { background: #7c4dbb; }
+
+    .io-group {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .io-btn {
+      flex: 1;
+      padding: 9px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 13px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .export-btn { background: #17a2b8; color: white; }
+    .export-btn:hover { background: #138496; }
+    .import-btn { background: #28a745; color: white; }
+    .import-btn:hover { background: #218838; }
+
+    .input-group {
+      margin-bottom: 10px;
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      font-size: 13px;
+      color: #ccc;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 9px;
+      border: 1px solid #555;
+      border-radius: 6px;
+      background: #333;
+      color: white;
+      box-sizing: border-box;
+      font-size: 13px;
+    }
+    .input-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    button {
+      flex: 1;
+      padding: 9px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+    .btn-primary { background: #007bff; color: white; }
+    .btn-primary:hover { background: #0056b3; }
+    .btn-success { background: #28a745; color: white; }
+    .btn-success:hover { background: #218838; }
+    .btn-warning { background: #ffc107; color: #212529; }
+    .btn-warning:hover { background: #e0a800; }
+
+    .search-box {
+      width: 100%;
+      padding: 9px;
+      border: 1px solid #555;
+      border-radius: 6px;
+      background: #333;
+      color: white;
+      margin-bottom: 12px;
+      font-size: 13px;
+    }
+
+    .url-list {
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #444;
+      border-radius: 6px;
+      background: #222;
+    }
+    .url-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #333;
+    }
+    .url-item:last-child { border-bottom: none; }
+    .url-info { flex-grow: 1; overflow: hidden; }
+    .url-title {
+      font-weight: bold;
+      color: white;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 2px;
+    }
+    .url-link {
+      color: #4da6ff;
+      font-size: 11px;
+      word-break: break-all;
+    }
+    .url-actions { display: flex; gap: 4px; }
+    .url-actions button {
+      padding: 6px 8px;
+      font-size: 11px;
+    }
+    .current-url {
+      background: rgba(124, 77, 187, 0.2);
+      border-left: 4px solid var(--primary);
+    }
+    .no-urls {
+      text-align: center;
+      color: #888;
+      padding: 25px;
+      font-style: italic;
+      font-size: 13px;
+    }
+
+    .notification {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: #28a745;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 6px;
+      z-index: 10000;
+      font-size: 13px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="globe.png" alt="Internet">
+    <h3>Gerenciador de URLs</h3>
+  </div>
+  <div class="dev-credit">Dev by Bruno Pereira</div>
+
+  <a href="https://teams.microsoft.com/l/chat/0/0?users=bruno.pereira@cocal.com.br" 
+     target="_blank" class="teams-btn">Conversa no Teams com Bruno</a>
+
+  <div class="io-group">
+    <button class="io-btn export-btn" id="exportBtn">Exportar URLs</button>
+    <label class="io-btn import-btn" id="importLabel">
+      Importar URLs
+      <input type="file" id="importFile" accept=".txt" style="display:none;">
+    </label>
+  </div>
+
+  <div class="input-group">
+    <label for="searchInput">Pesquisar:</label>
+    <input type="text" id="searchInput" class="search-box" placeholder="Filtrar por título ou URL...">
+  </div>
+
+  <div class="input-group">
+    <label for="urlTitle">Título:</label>
+    <input type="text" id="urlTitle" placeholder="Ex: Documentação API">
+  </div>
+
+  <div class="input-group">
+    <label for="urlLink">URL:</label>
+    <input type="url" id="urlLink" placeholder="https://exemplo.com">
+  </div>
+
+  <div class="button-group">
+    <button id="addBtn" class="btn-primary">Adicionar</button>
+    <button id="saveBtn" class="btn-success" style="display:none;">Salvar</button>
+    <button id="clearBtn" class="btn-warning">Limpar</button>
+  </div>
+
+  <div class="url-list" id="urlList">
+    <div class="no-urls">Nenhuma URL salva</div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
